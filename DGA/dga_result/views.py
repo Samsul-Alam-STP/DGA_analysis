@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from .models import DGA_Values
 from .forms import *
+from . import analysis
+from .utils import get_plot
+
 
 # Create your views here.
 
@@ -17,6 +20,13 @@ def form_view(request):
             acetylene = form.cleaned_data['acetylene']
             tdcg = form.cleaned_data['tdcg']
 
+            # Rogers Ratio
+            ratio1, ratio2, result = analysis.roger_ratio(carbon_di_oxide, carbon_monoxide,ethylene,ethane)
+            print(result)
+
+            # Duval's triangle one
+            duval_1, duval_1_area = get_plot(methane, ethylene, acetylene)
+
             context = {
                 'hydrogen': hydrogen,
                 'carbon_di_oxide': carbon_di_oxide,
@@ -26,6 +36,11 @@ def form_view(request):
                 'methane': methane,
                 'acetylene': acetylene,
                 'tdcg': tdcg,
+                'ratio1': ratio1,
+                'ratio2': ratio2,
+                'result': result,
+                'duval_1': duval_1,
+                'duval_1_area': duval_1_area,
             }
             return render(request, 'data.html', context)
     

@@ -23,6 +23,9 @@
 
     <canvas id="myChart" width="70" height="25"></canvas>
 
+<br>
+<hr>
+
 <script>
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
@@ -49,8 +52,17 @@
   });
 </script>
 
+<br>
+<hr>
+<h1> Roger's Ratio <h1>
+    <p> Carbon Di Oxide / Carbon Monoxide : {{ ratio1 }}</p>
+    <p> Ethylene / Ethane : {{ ratio2 }}</p>
+    <br>
+    <p> {{result}} </p>
 
-
-
+<h1> Duval's Triangle 1 </h1>
+<img src="data:image/png;base64, {{duval_1|safe}}"
+<br>
+<p>{{ duval_1_area }}</p>
 </body>
 </html>
