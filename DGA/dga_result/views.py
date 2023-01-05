@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import DGA_Values
 from .forms import *
 from . import analysis
-from .utils import get_plot
+from .utils import get_plot_duval_1, get_plot_duval_4, get_plot_duval_5
 
 
 # Create your views here.
@@ -25,7 +25,13 @@ def form_view(request):
             print(result)
 
             # Duval's triangle one
-            duval_1, duval_1_area = get_plot(methane, ethylene, acetylene)
+            duval_1, duval_1_area = get_plot_duval_1(methane, ethylene, acetylene)
+
+            # Duval's triangle four
+            duval_4, duval_4_area = get_plot_duval_4(methane, hydrogen, ethane)
+
+            # Duval's triangle four
+            duval_5, duval_5_area = get_plot_duval_5(ethylene, methane, ethane)
 
             context = {
                 'hydrogen': hydrogen,
@@ -41,6 +47,10 @@ def form_view(request):
                 'result': result,
                 'duval_1': duval_1,
                 'duval_1_area': duval_1_area,
+                'duval_4': duval_4,
+                'duval_4_area': duval_4_area,
+                'duval_5': duval_5,
+                'duval_5_area': duval_5_area,
             }
             return render(request, 'data.html', context)
     
