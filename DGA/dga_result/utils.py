@@ -1,8 +1,9 @@
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib.path as mplPath
 
 def get_graph():
@@ -365,3 +366,4 @@ def get_plot_duval_5(ethylene, methane, ethane):
     duval_graph = get_graph()
     
     return duval_graph, duval_5_area
+

@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseRedirect,BadHeaderError
 from .models import DGA_Values
 from .forms import *
 from . import analysis
 from .utils import get_plot_duval_1, get_plot_duval_4, get_plot_duval_5
-
+from django.views.generic import View
+from django.core.mail import send_mail
+from django.conf import settings
+from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -20,9 +24,12 @@ def form_view(request):
             acetylene = form.cleaned_data['acetylene']
             tdcg = form.cleaned_data['tdcg']
 
+            # saving the form data
+            dga_values = DGA_Values.objects.create(hydrogen=hydrogen,carbon_di_oxide=carbon_di_oxide,carbon_monoxide=carbon_monoxide,
+            ethylene=ethylene,ethane=ethane,methane=methane,acetylene=acetylene,tdcg=tdcg)
             # Rogers Ratio
-            ratio1, ratio2, result = analysis.roger_ratio(carbon_di_oxide, carbon_monoxide,ethylene,ethane)
-            print(result)
+            ratio_c2h2_c2h4, ratio_ch4_h2, ratio_c2h4_c2h6, result = analysis.roger_ratio(ethylene,ethane,methane, acetylene,hydrogen)
+
 
             # Duval's triangle one
             duval_1, duval_1_area = get_plot_duval_1(methane, ethylene, acetylene)
@@ -42,8 +49,9 @@ def form_view(request):
                 'methane': methane,
                 'acetylene': acetylene,
                 'tdcg': tdcg,
-                'ratio1': ratio1,
-                'ratio2': ratio2,
+                'ratio_c2h2_c2h4': ratio_c2h2_c2h4,
+                'ratio_ch4_h2': ratio_ch4_h2,
+                'ratio_c2h4_c2h6': ratio_c2h4_c2h6,
                 'result': result,
                 'duval_1': duval_1,
                 'duval_1_area': duval_1_area,
@@ -58,9 +66,38 @@ def form_view(request):
         form = DGA_form()
     return render(request, 'form.html',{'form':form})
 
-def data_view(request):
-    objects = DGA_Values.objects.all()
-    context = {
-        'objects':objects,
-    }
-    return render(request, 'data.html', context)
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            html = render_to_string('submitted_contact.html', {
+                'name' : name,
+                'email' : email,
+                'subject' : subject,
+                'message' : message
+                })
+
+            send_mail(subject, 
+            message, 
+            settings.EMAIL_HOST_USER,
+            ['samsul.alam.stp@gmail.com'], 
+            fail_silently=False,)
+
+            return redirect('contact_view')
+
+    else:
+        form = ContactForm()
+    
+    return render(request, 'contact.html', {'form':form})
+
+
+
+def about_view(request):
+    return render(request, 'about.html')    
+    
+    

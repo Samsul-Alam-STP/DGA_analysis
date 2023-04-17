@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block title %} About {% endblock title %}
+{% block content %}
+<div class="row container-fluid pt-3 pb-3" style="background-color: rgb(83, 145, 124);">
+    <div class="col-md-2" ></div>
+    <div class="col-md-8 my-3 p-3" style="background-color: rgb(167, 233, 201);">
+<main>
+    <article  id="about_standard">
+        <h2>About IEEE C57.104-2019 <abbr title="IEEE Guide for the Interpretation of Gases
+            Generated in Mineral Oil-Immersed Transformers"></abbr>
+        </h2>
+        <p class="pl-3 pr-3" style="text-align:justify">
+             IEEE C57.104-2019 is a standard for the interpretation of dissolved gas 
+             analysis (DGA) in transformer oil. It provides guidelines for the detection
+             and interpretation of gases dissolved in transformer oil, which can 
+             indicate the presence of potential problems in the transformer such as 
+             overheating, arcing, or aging of the insulation. The standard includes 
+             information on the normal levels of dissolved gases, as well as the 
+             levels that indicate potential problems. It also provides guidelines for 
+             the interpretation of DGA results, including the use of ratio analysis to 
+             determine the potential cause of any abnormalities. Additionally, it 
+             provides guidance on sampling, testing, and reporting of DGA results.
+        </p>
+
+        <h2>
+            DGA Analysis Tools Used in this Website
+        </h2>
+        <p style="text-align:justify">
+            There are many popular methods to assess the DGA reports like key gas method, 
+            rogers ratio, duval triangles and pentagon method. Among them here in this 
+            website we have particularly put our focus on rogers ratios and duval triangles
+            (1,4,5) method, as manual assessment and detection of fault types using these
+            methods are quite tedious and time consuming, specially when you have to 
+            analyze many reports. But gradually we will include other analysis in this 
+            website as well.
+        </p>
+        <h3>
+            Rogers Ratios
+        </h3>
+        <p style="text-align:justify">
+            IEEE C57.104-2019 standard includes the use of Rogers Ratios, which are a set 
+            of mathematical ratios used to interpret the results of DGA testing. The 
+            ratios are used to determine the level of degradation or fault within the 
+            transformer, and are calculated by dividing the concentration of a specific 
+            dissolved gas by the concentration of another specific gas. 
+            <br>
+            The following table shows the summary of rogers ratios method taken from 
+            <cite><a
+                href="https://standards.ieee.org/ieee/C57.104/7476/"
+                target="_blank">IEEE C57.104-2019</a>
+            </cite> (Table-5) standard.
+            <br>
+            <div style="text-align: center;">
+                <figure>
+                    <img src="{% static 'images/rogers_ratios.png'%}" alt="/rogers_ratios_400x267.png" title="Rogers Ratio" width="700" height="270">
+                </figure>
+            </div>
+            <p style="text-align:justify">
+            The values of these ratios are used to indicate the presence and severity of 
+            different types of faults in the transformer, such as partial discharge, 
+            overheating, and insulation breakdown. The standard also includes guidelines 
+            for interpreting the results of DGA testing, including recommended action 
+            levels for each ratio.
+            </p>
+        </p>
+
+        <h3>
+            Duval Triangles
+        </h3>
+        <p style="text-align:justify">
+            Duval's triangle is a graphical representation of the performance 
+            characteristics of a generator or motor as defined in the 
+            IEEE C57.104-2019 DGA (Dissolved Gas Analysis) standard. The triangle 
+            is divided into three regions, each representing a different type of 
+            electrical equipment failure.
+            <br>
+            The triangles (1,4,5) are used to interpret dissolved gas analysis results
+            and to identify potential issues with electrical equipment. The triangles 
+            are also used to compare results from different samples and to determine 
+            if a problem is getting worse over time.
+            <br>
+            <b>Note That:</b>
+            <nav>
+                <ul>
+                    <li>
+                        <p><b>a)</b> Triangles 4 and 5 should never be used for faults identified 
+                            first with Triangle 1 as electrical faults D1 or D2.
+                        </p>
+                    </li>
+                    <li>
+                        <p><b>b)</b> Triangle 4 should be used only in case of faults identified
+                             first as faults PD, T1 or T2 in Triangle 1.
+                        </p>
+                    </li>
+                    <li>
+                        <p><b>c)</b> Triangle 5 should be used only in case of faults identified
+                             first as faults T2 or T3 in Triangle 1
+                        </p>
+                    </li>
+                </ul>
+            </nav>
+        </p>
+        <br>
+
+    </article>
+</main>
+</div>
+<div class="col-md-2" ></div>
+</div>
+{% endblock content %}

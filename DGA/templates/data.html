@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <title>DGA</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block title %} DGA Report Analysis {% endblock title %}
+{% block content %}
+<div class="row container-fluid pt-3 pb-3" style="background-color: rgb(83, 145, 124);">
+    <div class="col-md-2" ></div>
+    <div class="col-md-8 my-3 p-3" style="background-color: rgb(167, 233, 201);">
+<div class="parent pb-3">
     <h1> The Values of DGA test report are given below: </h1>
     <p> Hydrogen : {{ hydrogen }} </p>
     <p> Carbon Di Oxide : {{ carbon_di_oxide }} </p>
@@ -27,36 +26,37 @@
 <hr>
 
 <script>
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: ['Hydrogen', 'Carbon Dioxide', 'Carbon Monoxide', 'Ethylene', 'Ethane', 'Methane', 'Acetylene', 'TDCG'],
-          datasets: [{
-              label: 'Data',
-              data: [{{hydrogen}}, {{carbon_di_oxide}}, {{carbon_monoxide}}, {{ethylene}}, {{ethane}}, {{methane}}, {{acetylene}}, {{tdcg}},],
-              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-              borderColor: 'rgba(255, 99, 132, 1)',
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
-              }]
-          }
-      }
-  });
-</script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Hydrogen', 'Carbon Dioxide', 'Carbon Monoxide', 'Ethylene', 'Ethane', 'Methane', 'Acetylene', 'TDCG'],
+            datasets: [{
+                label: 'Data',
+                data: [{{hydrogen}}, {{carbon_di_oxide}}, {{carbon_monoxide}}, {{ethylene}}, {{ethane}}, {{methane}}, {{acetylene}}, {{tdcg}}],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+  </script>  
 
 <br>
 <hr>
 <h1> Roger's Ratio <h1>
-    <p> Carbon Di Oxide / Carbon Monoxide : {{ ratio1 }}</p>
-    <p> Ethylene / Ethane : {{ ratio2 }}</p>
+    <p> Ratio of Acetylene/Ethylene (C2H2/C2H4) is : {{ ratio_c2h2_c2h4|floatformat:2 }}</p>
+    <p> Ratio of Methane/Hydrogen is (CH4/H2) is : {{ ratio_ch4_h2|floatformat:2 }}</p>
+    <p> Ratio of Ethylene/Ethane is (C2H4/C2H6) is : {{ ratio_c2h4_c2h6|floatformat:2 }}</p>
     <br>
     <p> {{result}} </p>
 
@@ -67,16 +67,27 @@
 <hr>
 
 <h1> Duval's Triangle 4 </h1>
-<img src="data:image/png;base64, {{duval_4|safe}}"
-<br>
-<p>{{ duval_4_area }}</p>
+{% if duval_1_area == 'PD' or duval_1_area == 'T1' or duval_1_area == 'T2'%}
+    <img src="data:image/png;base64, {{duval_4|safe}}"
+    <br>
+    <p>It falls in the {{ duval_4_area }} region</p>
+{% else %}
+    <p>Duval Triangle 4 is not applicable for this analysis</p>
+{% endif %}
 <hr>
 
 <h1> Duval's Triangle 5 </h1>
-<img src="data:image/png;base64, {{duval_5|safe}}"
-<br>
-<p>{{ duval_5_area }}</p>
+{% if duval_1_area == 'T2' or duval_1_area == 'T3' %}
+    <img src="data:image/png;base64, {{duval_5|safe}}"
+    <br>
+    <p>It falls in the {{ duval_5_area }} region</p>
+{% else %}
+    <p>Duval Triangle 5 is not applicable for this analysis</p>
+{% endif %}
 <hr>
-
-</body>
-</html>
+<br>
+</div>
+</div>
+<div class="col-md-2" ></div>
+</div>
+{% endblock content %}

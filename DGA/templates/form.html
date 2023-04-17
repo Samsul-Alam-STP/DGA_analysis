@@ -1,16 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Entry</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block title %} DGA Report Data Entry {% endblock title %}
+{% block content %}
+<!-- <div class="pb-3 pt-3">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit">
-      </form>
-</body>
-</html>
+    </form>
+</div> -->
+
+<div class="container p-3">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="hydrogen">Hydrogen</label>
+            <input type="number" class="form-control" id="hydrogen" name="hydrogen" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="carbon_di_oxide">Carbon-di-oxide</label>
+            <input type="number" class="form-control" id="carbon_di_oxide" name="carbon_di_oxide" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="carbon_monoxide">Carbon Monoxide</label>
+            <input type="number" class="form-control" id="carbon_monoxide" name="carbon_monoxide" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="ethylene">Ethylene</label>
+            <input type="number" class="form-control" id="ethylene" name="ethylene" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="ethane">Ethane</label>
+            <input type="number" class="form-control" id="ethane" name="ethane" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="methane">Methane</label>
+            <input type="number" class="form-control" id="methane" name="methane" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="acetylene">Acetylene</label>
+            <input type="number" class="form-control" id="acetylene" name="acetylene" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="tdcg">TDCG</label>
+            <input type="number" class="form-control" id="tdcg" name="tdcg" placeholder="">
+        </div>
+        <div class="pt-3">
+        <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
+    </form>
+</div>
+{% endblock content %}

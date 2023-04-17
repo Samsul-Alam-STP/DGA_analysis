@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class DGA_Values(models.Model):
     hydrogen = models.FloatField(default=None, null=False)
@@ -10,4 +11,5 @@ class DGA_Values(models.Model):
     methane = models.FloatField(default=None, null=False)
     acetylene = models.FloatField(default=None, null=False)
     tdcg = models.FloatField(default=None, null=False)
+
 
