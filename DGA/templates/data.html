@@ -3,91 +3,126 @@
 {% load static %}
 {% block title %} DGA Report Analysis {% endblock title %}
 {% block content %}
-<div class="row container-fluid pt-3 pb-3" style="background-color: rgb(83, 145, 124);">
-    <div class="col-md-2" ></div>
-    <div class="col-md-8 my-3 p-3" style="background-color: rgb(167, 233, 201);">
-<div class="parent pb-3">
-    <h1> The Values of DGA test report are given below: </h1>
-    <p> Hydrogen : {{ hydrogen }} </p>
-    <p> Carbon Di Oxide : {{ carbon_di_oxide }} </p>
-    <p> Carbon Monoxide : {{ carbon_monoxide }}</p>
-    <p> Ethylene : {{ ethylene }}</p>
-    <p> Ethane : {{ ethane }}</p>
-    <p> Methane : {{ methane }}</p>
-    <p> Acetylene : {{ acetylene }}</p>
-    <p> TDCG : {{ tdcg }}</p>
-    <br>
-    <br>
-    <h1> Individual Gas Content Visualization </h1>
-
-    <canvas id="myChart" width="70" height="25"></canvas>
-
-<br>
-<hr>
-
-<script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Hydrogen', 'Carbon Dioxide', 'Carbon Monoxide', 'Ethylene', 'Ethane', 'Methane', 'Acetylene', 'TDCG'],
-            datasets: [{
-                label: 'Data',
-                data: [{{hydrogen}}, {{carbon_di_oxide}}, {{carbon_monoxide}}, {{ethylene}}, {{ethane}}, {{methane}}, {{acetylene}}, {{tdcg}}],
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+<div class="container-fluid pt-3 pb-3">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="my-3 p-3 rounded" style="background-color: #ede6ca;">
+        <div class="pb-3">
+          <h1 class="text-center">DGA Test Report</h1>
+          <div class="text-center">
+            <p>Hydrogen: {{ hydrogen }}</p>
+            <p>Carbon Dioxide: {{ carbon_di_oxide }}</p>
+            <p>Carbon Monoxide: {{ carbon_monoxide }}</p>
+            <p>Ethylene: {{ ethylene }}</p>
+            <p>Ethane: {{ ethane }}</p>
+            <p>Methane: {{ methane }}</p>
+            <p>Acetylene: {{ acetylene }}</p>
+            <p>TDCG: {{ tdcg }}</p>
+          </div>
+          <br />
+          <br />
+          <h1 class="text-center">Individual Gas Content Visualization</h1>
+          <div class="text-center">
+            <canvas id="myChart" width="100%" height="60"></canvas>
+          </div>
+          <br />
+          <hr />
+          <h1 class="text-center">Roger's Ratio</h1>
+          <div class="text-center">
+            <p>Ratio of Acetylene/Ethylene (C2H2/C2H4) is : {{ ratio_c2h2_c2h4|floatformat:2 }}</p>
+            <p>Ratio of Methane/Hydrogen (CH4/H2) is: {{ratio_ch4_h2|floatformat:2 }}</p>
+            <p>Ratio of Ethylene/Ethane (C2H4/C2H6) is: {{ratio_c2h4_c2h6|floatformat:2 }}</p>
+          </div>
+          <br />
+          <style>
+            @keyframes blink {
+              0% { opacity: 0; }
+              50% { opacity: 1; }
+              100% { opacity: 0; }
             }
-        }
-    });
-  </script>  
+          </style>
+          
+          <div class="text-center" style="font-size: 20px; color: #1013e3;">
+            <p>The Roger's ratio analysis indicates <span style="animation: blink 5s linear infinite; font-weight: bold;">{{ result }}</span></p>
+          </div>
 
-<br>
-<hr>
-<h1> Roger's Ratio <h1>
-    <p> Ratio of Acetylene/Ethylene (C2H2/C2H4) is : {{ ratio_c2h2_c2h4|floatformat:2 }}</p>
-    <p> Ratio of Methane/Hydrogen is (CH4/H2) is : {{ ratio_ch4_h2|floatformat:2 }}</p>
-    <p> Ratio of Ethylene/Ethane is (C2H4/C2H6) is : {{ ratio_c2h4_c2h6|floatformat:2 }}</p>
-    <br>
-    <p> {{result}} </p>
+          <h1 class="text-center">Duval's Triangle 1</h1>
+          <div class="text-center">
+            <img
+              src="data:image/png;base64, {{ duval_1|safe }}"
+              alt="Duval Triangle 1"
+              width="450"
+              height="300"
+            />
+            <p>It falls in the {{ duval_1_area }} region</p>
+          </div>
+          <hr />
 
-<h1> Duval's Triangle 1 </h1>
-<img src="data:image/png;base64, {{duval_1|safe}}"
-<br>
-<p>{{ duval_1_area }}</p>
-<hr>
+          <h1 class="text-center">Duval's Triangle 4</h1>
+          {% if duval_1_area == 'PD' or duval_1_area == 'T1' or duval_1_area == 'T2'%}
+          <div class="text-center">
+            <img
+              src="data:image/png;base64, {{ duval_4|safe }}"
+              alt="Duval Triangle 4"
+              width="450"
+              height="300"
+            />
+            <p>It falls in the {{ duval_4_area }} region</p>
+          </div>
+          {% else %}
+          <div class="text-center">
+            <p>Duval Triangle 4 is not applicable for this analysis</p>
+          </div>
+          {% endif %}
+          <hr />
 
-<h1> Duval's Triangle 4 </h1>
-{% if duval_1_area == 'PD' or duval_1_area == 'T1' or duval_1_area == 'T2'%}
-    <img src="data:image/png;base64, {{duval_4|safe}}"
-    <br>
-    <p>It falls in the {{ duval_4_area }} region</p>
-{% else %}
-    <p>Duval Triangle 4 is not applicable for this analysis</p>
-{% endif %}
-<hr>
-
-<h1> Duval's Triangle 5 </h1>
-{% if duval_1_area == 'T2' or duval_1_area == 'T3' %}
-    <img src="data:image/png;base64, {{duval_5|safe}}"
-    <br>
-    <p>It falls in the {{ duval_5_area }} region</p>
-{% else %}
-    <p>Duval Triangle 5 is not applicable for this analysis</p>
-{% endif %}
-<hr>
-<br>
+          <h1 class="text-center">Duval's Triangle 5</h1>
+          {% if duval_1_area == 'T2' or duval_1_area == 'T3' %}
+          <div class="text-center">
+            <img
+              src="data:image/png;base64, {{ duval_5|safe }}"
+              alt="Duval Triangle 5"
+              width="450"
+              height="300"
+            />
+            <p>It falls in the {{ duval_5_area }} region</p>
+          </div>
+          {% else %}
+          <div class="text-center">
+            <p>Duval Triangle 5 is not applicable for this analysis</p>
+          </div>
+          {% endif %}
+          <hr />
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-<div class="col-md-2" ></div>
-</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+  labels: ['Hydrogen', 'Carbon Dioxide', 'Carbon Monoxide', 'Ethylene', 'Ethane', 'Methane', 'Acetylene', 'TDCG'],
+  datasets: [{
+  label: 'Data',
+  data: [{{hydrogen}}, {{carbon_di_oxide}}, {{carbon_monoxide}}, {{ethylene}}, {{ethane}}, {{methane}}, {{acetylene}}, {{tdcg}}],
+  backgroundColor: 'rgba(255, 99, 132, 0.2)',
+  borderColor: 'rgba(255, 99, 132, 1)',
+  borderWidth: 1
+  }]
+  },
+  options: {
+  scales: {
+  y: {
+  beginAtZero: true
+  }
+  }
+  }
+  });
+</script>
+
 {% endblock content %}

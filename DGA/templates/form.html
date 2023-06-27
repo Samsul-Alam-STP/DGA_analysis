@@ -3,52 +3,60 @@
 {% load static %}
 {% block title %} DGA Report Data Entry {% endblock title %}
 {% block content %}
-<!-- <div class="pb-3 pt-3">
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
-</div> -->
-
 <div class="container p-3">
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="hydrogen">Hydrogen</label>
-            <input type="number" class="form-control" id="hydrogen" name="hydrogen" placeholder="">
-        </div>
-        <div class="form-group">
-            <label for="carbon_di_oxide">Carbon-di-oxide</label>
-            <input type="number" class="form-control" id="carbon_di_oxide" name="carbon_di_oxide" placeholder="">
-        </div>
-        <div class="form-group">
-            <label for="carbon_monoxide">Carbon Monoxide</label>
-            <input type="number" class="form-control" id="carbon_monoxide" name="carbon_monoxide" placeholder="">
-        </div>
-        <div class="form-group">
-            <label for="ethylene">Ethylene</label>
-            <input type="number" class="form-control" id="ethylene" name="ethylene" placeholder="">
-        </div>
-        <div class="form-group">
-            <label for="ethane">Ethane</label>
-            <input type="number" class="form-control" id="ethane" name="ethane" placeholder="">
-        </div>
-        <div class="form-group">
-            <label for="methane">Methane</label>
-            <input type="number" class="form-control" id="methane" name="methane" placeholder="">
-        </div>
-        <div class="form-group">
-            <label for="acetylene">Acetylene</label>
-            <input type="number" class="form-control" id="acetylene" name="acetylene" placeholder="">
-        </div>
-        <div class="form-group">
-            <label for="tdcg">TDCG</label>
-            <input type="number" class="form-control" id="tdcg" name="tdcg" placeholder="">
-        </div>
-        <div class="pt-3">
-        <input type="submit" class="btn btn-primary" value="Submit">
-        </div>
-    </form>
+  <form method="post">
+    {% csrf_token %}
+    <div class="row mb-3">
+      <label for="hydrogen" class="col-sm-2 col-form-label d-flex justify-content-end align-items-center">Hydrogen</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="hydrogen" name="hydrogen" placeholder="" style="width: 350px; ">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="carbon_di_oxide" class="col-sm-2 col-form-label d-flex justify-content-end align-items-center">Carbon-di-oxide</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="carbon_di_oxide" name="carbon_di_oxide" placeholder="" style="width: 350px;">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="carbon_monoxide" class="col-sm-2 col-form-label d-flex justify-content-end align-items-center">Carbon Monoxide</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="carbon_monoxide" name="carbon_monoxide" placeholder="" style="width: 350px;">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="ethylene" class="col-sm-2 col-form-label d-flex justify-content-end align-items-center">Ethylene</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="ethylene" name="ethylene" placeholder="" style="width: 350px;">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="ethane" class="col-sm-2 col-form-label d-flex justify-content-end align-items-center">Ethane</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="ethane" name="ethane" placeholder="" style="width: 350px;">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="methane" class="col-sm-2 col-form-label d-flex justify-content-end align-items-center">Methane</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="methane" name="methane" placeholder="" style="width: 350px;">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="acetylene" class="col-sm-2 col-form-label d-flex justify-content-end align-items-center">Acetylene</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="acetylene" name="acetylene" placeholder="" style="width: 350px;">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="tdcg" class="col-sm-2 col-form-label d-flex justify-content-end align-items-center">TDCG</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="tdcg" name="tdcg" placeholder="" style="width: 350px;">
+      </div>
+    </div>
+    <div class="col-sm-8 d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary mx-auto">Submit</button>
+    </div>
+  </form>
 </div>
 {% endblock content %}

@@ -3,9 +3,17 @@
 {% load static %}
 {% block title %} About {% endblock title %}
 {% block content %}
-<div class="row container-fluid pt-3 pb-3" style="background-color: rgb(83, 145, 124);">
+<style>
+    .container-fluid {
+      margin-right: 0;
+      margin-left: 0;
+      padding-right: 0;
+      padding-left: 0;
+    }
+  </style>
+<div class="container-fluid row pt-0 pb-3" style="margin-right: 0; margin-left: 0;">
     <div class="col-md-2" ></div>
-    <div class="col-md-8 my-3 p-3" style="background-color: rgb(167, 233, 201);">
+    <div class="col-md-8 my-3 p-3" >
 <main>
     <article  id="about_standard">
         <h2>About IEEE C57.104-2019 <abbr title="IEEE Guide for the Interpretation of Gases
@@ -53,8 +61,8 @@
             </cite> (Table-5) standard.
             <br>
             <div style="text-align: center;">
-                <figure>
-                    <img src="{% static 'images/rogers_ratios.png'%}" alt="/rogers_ratios_400x267.png" title="Rogers Ratio" width="700" height="270">
+                <figure >
+                    <img src="{% static 'images/rogers_ratios.png'%}" alt="/rogers_ratios_400x267.png" title="Rogers Ratio" width="610" height="270">
                 </figure>
             </div>
             <p style="text-align:justify">
