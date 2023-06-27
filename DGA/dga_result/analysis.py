@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 def roger_ratio(ethylene,ethane,methane, acetylene,hydrogen):
@@ -28,3 +29,13 @@ def co2_c0_ratio(carbon_di_oxide, carbon_monoxide):
     
 
 
+=======
+def roger_ratio(carbon_di_oxide, carbon_monoxide,ethylene,ethane):
+    ratio1 = carbon_di_oxide/carbon_monoxide
+    ratio2 = ethylene/ethane
+    if ratio1 >= 2:
+        result = 'Transformer Okay'
+    else:
+        result = 'Need further analysis'
+    return ratio1, ratio2, result
+>>>>>>> 9722bbbd343f5da9d344ea25d059419e6706a359
